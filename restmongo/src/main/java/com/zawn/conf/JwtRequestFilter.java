@@ -18,7 +18,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.zawn.service.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
@@ -32,6 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		final String requestTokenHeader = request.getHeader("Authorization");
 		String username = null;
 		String jwtToken = null;
+		String warn=null;
 // JWT Token is in the form "Bearer token". Remove Bearer word and get
 // only the Token
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
@@ -39,13 +41,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			try {
 				username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 			} catch (IllegalArgumentException e) {
-				System.out.println("Unable to get JWT Token");
+				System.out.println(warn="Unable to get JWT Token." );
 			} catch (ExpiredJwtException e) {
-				System.out.println("JWT Token has expired");
+				System.out.println(warn="JWT Token has expired.");
 			}
 		} else {
-			logger.warn("JWT Token does not begin with Bearer String");
+			//logger.warn();
+			warn="JWT Token does not begin with Bearer String.";
 		}
+		if (warn != null)
+			log.warn(warn + " Request URL: " + request.getRequestURL().toString()
+					+ " , Client: " + request.getRemoteHost());
 // Once we get the token validate it.
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);

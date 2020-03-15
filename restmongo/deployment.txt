@@ -1,0 +1,1 @@
+1. Extract application.properties and place in Current Directory.

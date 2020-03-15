@@ -23,6 +23,8 @@ import com.zawn.domain.authen.JwtResponse;
 import com.zawn.domain.authen.UserDTO;
 import com.zawn.service.JwtUserDetailsService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j 
 @RestController
 @CrossOrigin//(origins = "http://localhost:9000")
 public class JwtAuthenticationController {
@@ -42,6 +44,7 @@ public class JwtAuthenticationController {
 		Users user=userDetailsService.findUsersByUsername(authenticationRequest.getUsername());
 		JwtResponse res=new JwtResponse(token);
 		res.setUsers(user);
+		log.info("Successful login. User name: " + user.getUsername() );
 		return ResponseEntity.ok(res);
 	}
 	
