@@ -14,6 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.zawn.domain.Logs;
 import com.zawn.domain.Users;
 
 @Configuration
@@ -46,7 +47,11 @@ public class RestConfiguration implements  RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration restConfig) {
         ExposureConfiguration config = restConfig.getExposureConfiguration();
+        
         config.forDomainType(Users.class).withItemExposure((metadata, httpMethods) ->
           httpMethods.disable(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH, HttpMethod.DELETE));
+        
+        config.forDomainType(Logs.class).withItemExposure((metadata, httpMethods) ->
+        httpMethods.disable(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH, HttpMethod.DELETE));
     }
 }

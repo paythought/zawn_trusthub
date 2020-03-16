@@ -4,8 +4,8 @@ import java.math.BigInteger;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.zawn.domain.Status;
+import com.zawn.domain.Timelines;
 
-public interface StatusRepository extends MongoRepository<Status, BigInteger> {
+public interface TimelinesRepository extends MongoRepository<Timelines, BigInteger> {
 
 }

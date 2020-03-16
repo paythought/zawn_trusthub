@@ -1,9 +1,14 @@
 package com.zawn.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -26,7 +31,7 @@ import lombok.Setter;
  */
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"username", "password", "type", "hidden", "status", "verified", "notes"}) //, "timeline" 
+@JsonPropertyOrder({"username", "password", "type", "hidden", "status", "verified", "notes", "logs"})  
 @Getter
 @Setter
 @NoArgsConstructor
@@ -49,10 +54,10 @@ public class Users extends AbstractDocument {
 	public Boolean verified=null;
 	@JsonProperty("notes")
 	public String notes=null;
-//	@JsonProperty("timeline")
-//	@Valid
-//	@DBRef
-//	public List<Logs> timeline = new ArrayList<>();
+	@JsonProperty("logs")
+	@Valid
+	@DBRef
+	public List<Logs> logs = new ArrayList<>();
 
 	public enum Type {
 		OPERATOR("OPERATOR"), ADMIN("ADMIN"), COMPANY("COMPANY"), PERSON("PERSON"),PARTNER("PARTNER");

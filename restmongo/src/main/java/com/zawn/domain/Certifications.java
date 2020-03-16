@@ -32,8 +32,7 @@ import lombok.Setter;
 "hidden",
 "status",
 "verified",
-"notes",
-"timeline"
+"notes"
 })
 @Getter
 @Setter
@@ -59,8 +58,5 @@ public StatusWithSuspendedEnum status;
 public Boolean verified;
 @JsonProperty("notes")
 public String notes;
-@JsonProperty("timeline")
-@Valid
-public List<Logs> timeline = new ArrayList<>();
 
 }

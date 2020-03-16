@@ -32,7 +32,7 @@ import lombok.Setter;
     "id_user",
     "id_customer",
     "id_operation",
-    "id_status",
+    "id_timeline",
     "id_parameter",
     "id_sequence",
     "id_step",
@@ -58,10 +58,6 @@ import lombok.Setter;
     "description",
     "type",
     "code",
-    "details",
-    "vpn",
-    "ssl",
-    "encrypted",
     "imei",
     "ip",
     "mac",
@@ -78,13 +74,14 @@ import lombok.Setter;
     @JsonProperty("id_abis")
     public BigInteger id_abis;
     @JsonProperty("id_user")
-    public BigInteger id_user;
+    @DBRef
+    public Users id_user;
     @JsonProperty("id_customer")
     @DBRef public Customers id_customer;
     @JsonProperty("id_operation")
     @DBRef public Operations id_operation;
-    @JsonProperty("id_status")
-    @DBRef public Status id_status;
+    @JsonProperty("id_timeline")
+    @DBRef public Timelines id_timeline;
     @JsonProperty("id_parameter")
     @DBRef public Parameters id_parameter;
     @JsonProperty("id_sequence")
@@ -135,14 +132,6 @@ import lombok.Setter;
     public Logs.Type type;
     @JsonProperty("code")
     public Double code;
-    @JsonProperty("details")
-    public String details;
-    @JsonProperty("vpn")
-    public Boolean vpn;
-    @JsonProperty("ssl")
-    public Boolean ssl;
-    @JsonProperty("encrypted")
-    public Boolean encrypted;
     @JsonProperty("imei")
     public String imei;
     @JsonProperty("ip")

@@ -55,7 +55,8 @@ import lombok.Setter;
 @Document @Getter @Setter @NoArgsConstructor public class  Documents extends AbstractDocument{
 
     @JsonProperty("id_user")
-    public BigInteger id_user;
+    @DBRef
+    public Users id_user;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")

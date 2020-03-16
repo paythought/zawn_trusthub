@@ -31,15 +31,18 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+	"id_person",
     "id_document",
     "id_abis",
-    "id_operation",
+    "id_timeline",
+    "id_step",
     "id_log",
     "type",
     "name",
     "description",
     "key",
     "hash",
+    
     "hidden",
     "status",
     "verified",
@@ -47,13 +50,16 @@ import lombok.Setter;
     "logs"
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Notarizations extends AbstractDocument{
-
+	@JsonProperty("id_person")
+    @DBRef public Users id_person;
     @JsonProperty("id_document")
     @DBRef public Documents id_document;
     @JsonProperty("id_abis")
     public BigInteger id_abis;
-    @JsonProperty("id_operation")
-    @DBRef public Operations id_operation;
+    @JsonProperty("id_timeline")
+    @DBRef public Timelines id_timeline;
+    @JsonProperty("id_step")
+    @DBRef public Steps id_step;
     @JsonProperty("id_log")
     @DBRef public Logs id_log;
     @JsonProperty("type")
@@ -119,10 +125,11 @@ import lombok.Setter;
     }
 
     public enum Type {
-
+    	IDENTITY("IDENTITY"),
         DOCUMENT("DOCUMENT"),
         BIOMETRIC("BIOMETRIC"),
-        OPERATION("OPERATION"),
+        TIMELINE("TIMELINE"),
+        STEP("STEP"),
         LOG("LOG");
         private final String value;
         private final static Map<String, Notarizations.Type> CONSTANTS = new HashMap<String, Notarizations.Type>();

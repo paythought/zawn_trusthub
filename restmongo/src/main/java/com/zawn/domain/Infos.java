@@ -31,7 +31,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_user",
+    "id_person",
     "name",
     "description",
     "metadata",
@@ -41,6 +41,7 @@ import lombok.Setter;
     "attach_path",
     "attach_hash",
     "attach_token",
+    
     "hidden",
     "status",
     "verified",
@@ -49,8 +50,9 @@ import lombok.Setter;
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Infos extends AbstractDocument{
 
-    @JsonProperty("id_user")
-    public BigInteger id_user;
+    @JsonProperty("id_person")
+    @DBRef
+    public Users id_person;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")

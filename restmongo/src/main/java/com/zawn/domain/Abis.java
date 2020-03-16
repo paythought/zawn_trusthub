@@ -21,7 +21,7 @@ import lombok.Setter;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id_user", "hidden", "status", "verified", "notes", "timeline" })
+@JsonPropertyOrder({ "id_user", "hidden", "status", "verified", "notes" })
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,8 +36,4 @@ public class Abis extends AbstractDocument{
 	public Boolean verified;
 	@JsonProperty("notes")
 	public String notes;
-	@JsonProperty("timeline")
-	@Valid
-	public List<Logs> timeline = new ArrayList<>();
-
 }

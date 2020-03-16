@@ -37,9 +37,12 @@ import lombok.Setter;
 @JsonPropertyOrder({
     "name",
     "description",
+    "icon",
+    "image",
     "type",
+    "category",
     "witness",
-    "steps",
+    "operations",
     "parameters",
     "amount",
     "hidden",
@@ -57,15 +60,22 @@ public class Sequences extends AbstractDocument{
     public String name;
     @JsonProperty("description")
     public String description;
+    @JsonProperty("icon")
+    public String icon;
+    @JsonProperty("image")
+    public String image;
     @JsonProperty("type")
     @NotNull
     public Sequences.Type type;
+    @JsonProperty("category")
+    @NotNull
+    public Sequences.Category category;
     @JsonProperty("witness")
     public Boolean witness;
-    @JsonProperty("steps")
+    @JsonProperty("operations")
     @Valid
     @DBRef 
-    public List<Steps> steps = new ArrayList<>();
+    public List<Operations> operations = new ArrayList<>();
     @JsonProperty("parameters") 
     @Valid
     public Map<String, Object> parameters = new HashMap<String, Object>();
@@ -83,19 +93,19 @@ public class Sequences extends AbstractDocument{
     @Valid
     @DBRef 
     public List<Logs> logs = new ArrayList<>();
-    @JsonIgnore
-    @Valid
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
+//    @JsonIgnore
+//    @Valid
+//    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+//
+//    @JsonAnyGetter
+//    public Map<String, Object> getAdditionalProperties() {
+//        return this.additionalProperties;
+//    }
+//
+//    @JsonAnySetter
+//    public void setAdditionalProperty(String name, Object value) {
+//        this.additionalProperties.put(name, value);
+//    }
 
     public enum Status {
 
@@ -178,5 +188,42 @@ public class Sequences extends AbstractDocument{
         }
 
     }
+    public enum Category {
 
+    	PERSONS("PERSONS"),
+    	OPERATORS("OPERATORS");
+    	private final String value;
+    	private final static Map<String, Sequences.Category> CONSTANTS = new HashMap<>();
+
+    	static {
+    	for (Sequences.Category c: values()) {
+    	CONSTANTS.put(c.value, c);
+    	}
+    	}
+
+    	private Category(String value) {
+    	this.value = value;
+    	}
+
+    	@Override
+    	public String toString() {
+    	return this.value;
+    	}
+
+    	@JsonValue
+    	public String value() {
+    	return this.value;
+    	}
+
+    	@JsonCreator
+    	public static Sequences.Category fromValue(String value) {
+    		Sequences.Category constant = CONSTANTS.get(value);
+    	if (constant == null) {
+    	throw new IllegalArgumentException(value);
+    	} else {
+    	return constant;
+    	}
+    	}
+
+    	}
 }

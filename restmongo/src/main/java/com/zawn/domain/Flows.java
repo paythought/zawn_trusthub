@@ -31,7 +31,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_user",
+    "id_person",
     "name",
     "description",
     "parameters",
@@ -44,8 +44,9 @@ import lombok.Setter;
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Flows extends AbstractDocument{
 
-    @JsonProperty("id_user")
-    public BigInteger id_user;
+    @JsonProperty("id_person")
+    @DBRef
+    public Users id_person;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")

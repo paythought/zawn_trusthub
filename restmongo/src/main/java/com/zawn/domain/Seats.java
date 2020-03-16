@@ -32,7 +32,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_user",
+    "id_customer",
     "id_licence",
     "devices",
     "name",
@@ -51,8 +51,9 @@ import lombok.Setter;
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Seats  extends AbstractDocument{
 
-    @JsonProperty("id_user")
-    public BigInteger id_user;
+    @JsonProperty("id_customer")
+    @DBRef
+    public Users id_customer;
     @JsonProperty("id_licence")
     @DBRef public Licences id_licence;
     @JsonProperty("devices")

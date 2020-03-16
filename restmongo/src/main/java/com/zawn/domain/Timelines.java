@@ -23,17 +23,16 @@ import lombok.Setter;
 
 
 /**
- * status
+ * timelines
  * <p>
  * 
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "id_owner",
     "id_sequence",
-    "name",
-    "description",
-    "completed",
+    "steps",
     "cache",
     "hidden",
     "status",
@@ -42,26 +41,23 @@ import lombok.Setter;
     "logs"
 })
 @Document @Getter @Setter @NoArgsConstructor 
-public class Status extends AbstractDocument{
-
+public class Timelines extends AbstractDocument{
+	@JsonProperty("id_owner")
+    @DBRef 
+    public Users id_owner;
     @JsonProperty("id_sequence")
     @DBRef 
-    @NotNull
-    public Object id_sequence;
-    @JsonProperty("name")
-    public String name;
-    @JsonProperty("description")
-    public String description;
-    @JsonProperty("completed")
+    public Sequences id_sequence;
+    @JsonProperty("steps")
     @Valid
     @DBRef 
-    public List<Steps> completed = new ArrayList<>();
+    public List<Steps> steps = new ArrayList<>();
     @JsonProperty("cache")
     public String cache;
     @JsonProperty("hidden")
     public Boolean hidden;
     @JsonProperty("status")
-    public Status.StatusEnum status;
+    public Timelines.Status status;
     @JsonProperty("verified")
     public Boolean verified;
     @JsonProperty("notes")
@@ -71,21 +67,21 @@ public class Status extends AbstractDocument{
     @DBRef 
     public List<Logs> logs = new ArrayList<>();
 
-    public enum StatusEnum {
+    public enum Status {
 
         ENABLED("ENABLED"),
         DISABLED("DISABLED"),
         DELETED("DELETED");
         private final String value;
-        private final static Map<String, Status.StatusEnum> CONSTANTS = new HashMap<>();
+        private final static Map<String, Timelines.Status > CONSTANTS = new HashMap<>();
 
         static {
-            for (Status.StatusEnum c: values()) {
+            for (Timelines.Status  c: values()) {
                 CONSTANTS.put(c.value, c);
             }
         }
 
-        private StatusEnum(String value) {
+        private Status(String value) {
             this.value = value;
         }
 
@@ -100,8 +96,8 @@ public class Status extends AbstractDocument{
         }
 
         @JsonCreator
-        public static Status.StatusEnum fromValue(String value) {
-        	Status.StatusEnum constant = CONSTANTS.get(value);
+        public static Timelines.Status fromValue(String value) {
+        	Timelines.Status constant = CONSTANTS.get(value);
             if (constant == null) {
                 throw new IllegalArgumentException(value);
             } else {

@@ -31,8 +31,8 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_user_sender",
-    "id_user_receiver",
+    "id_owner",
+    "id_person",
     "title",
     "content",
     "attach",
@@ -49,10 +49,12 @@ import lombok.Setter;
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Notifications extends AbstractDocument{
 
-    @JsonProperty("id_user_sender")
-    public BigInteger id_user_sender;
-    @JsonProperty("id_user_receiver")
-    public BigInteger id_user_receiver;
+    @JsonProperty("id_owner")
+    @DBRef
+    public Users id_owner;
+    @JsonProperty("id_person")
+    @DBRef
+    public Users id_person;
     @JsonProperty("title")
     public String title;
     @JsonProperty("content")

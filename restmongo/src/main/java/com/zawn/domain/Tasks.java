@@ -31,13 +31,17 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_user",
+    "id_owner",
+    "id_operator",
+    "id_person",
     "id_sequence",
+    "id_flow",
     "name",
     "description",
     "parameters",
     "conditions",
     "actions",
+    
     "hidden",
     "status",
     "verified",
@@ -46,10 +50,19 @@ import lombok.Setter;
 })
 @Document @Getter @Setter @NoArgsConstructor public class  Tasks  extends AbstractDocument{
 
-    @JsonProperty("id_user")
-    public BigInteger id_user;
+    @JsonProperty("id_owner")
+    @DBRef
+    public Users id_owner;
+    @JsonProperty("id_operator")
+    @DBRef
+    public Users id_operator;
+    @JsonProperty("id_person")
+    @DBRef
+    public Users id_person;
     @JsonProperty("id_sequence")
     @DBRef public Sequences id_sequence;
+    @JsonProperty("id_flow")
+    @DBRef public Sequences id_flow;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -63,6 +76,7 @@ import lombok.Setter;
     @JsonProperty("actions")
     @Valid
     public List<String> actions = new ArrayList<String>();
+    
     @JsonProperty("hidden")
     public Boolean hidden;
     @JsonProperty("status")
