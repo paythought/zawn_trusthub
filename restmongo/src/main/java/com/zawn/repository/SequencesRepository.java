@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.zawn.domain.Sequences;
 
-public interface SequencesRepository extends MongoRepository<Sequences, BigInteger> {
+public interface SequencesRepository extends MongoRepository<Sequences, String> {
 
 }

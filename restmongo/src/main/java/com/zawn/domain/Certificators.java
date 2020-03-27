@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -48,7 +47,7 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Certificators extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor public class  Certificators extends AbstractLoggedDocument{
 
     @JsonProperty("name")
     public String name;
@@ -81,9 +80,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

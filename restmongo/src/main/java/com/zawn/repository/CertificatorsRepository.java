@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.zawn.domain.Certificators;
 
-public interface CertificatorsRepository extends MongoRepository<Certificators, BigInteger> {
+public interface CertificatorsRepository extends MongoRepository<Certificators, String> {
 
 }

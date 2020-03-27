@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.zawn.service.UserNotFoundException;
-
+/**
+ * Exception handler for pure HATEOAP application without DATA REST
+ * @author home
+ *
+ */
 @ControllerAdvice
 public class ExceptionHandlingAdvice {
 

@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public abstract class AbstractDocument {
 	@Id
-	private BigInteger id=null;
+	private String id=null;
 	
 }

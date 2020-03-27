@@ -30,7 +30,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_customer",
+    "idcustomer",
     "name",
     "description",
     "parameters",
@@ -40,10 +40,10 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Subscriptions  extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor public class  Subscriptions  extends AbstractLoggedDocument{
 
-    @JsonProperty("id_customer")
-    @DBRef public Customers id_customer;
+    @JsonProperty("idcustomer")
+    @DBRef public Customers idcustomer;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -59,9 +59,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

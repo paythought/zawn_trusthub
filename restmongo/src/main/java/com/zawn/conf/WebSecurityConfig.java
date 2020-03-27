@@ -17,17 +17,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.zawn.domain.authen.UserDTO;
 import com.zawn.service.UserRole;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Value("${app.auth.enable}")
-	private boolean enableAuth = true; 
-	
+	private boolean enableAuth = true;
+
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	@Autowired
@@ -37,9 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-// configure AuthenticationManager so that it knows from where to load
-// user for matching credentials
-// Use BCryptPasswordEncoder
+		// configure AuthenticationManager so that it knows from where to load
+		// user for matching credentials
+		// Use BCryptPasswordEncoder
 		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 
@@ -56,24 +55,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-// We don't need CSRF for this system
 		httpSecurity.csrf().disable()
-// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/login",
-						enableAuth?"/":"/**"
-						,"/profile/**"				//"/profile/**/*"
-						).permitAll()
-				.antMatchers(
-						HttpMethod.OPTIONS
-						).permitAll().
-// all other requests need to be authenticated
-//				antMatchers("/user/**").hasRole(UserRole.ROLE_ADMIN).
-				anyRequest().authenticated().and().
-// make sure we use stateless session; session won't be used to
-// store user's state.
-				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-// Add a filter to validate the tokens with every request
+		// dont authenticate this particular request
+				.authorizeRequests().
+				
+				antMatchers(
+						"/login", 
+						enableAuth ? "/" : "/**", 
+						"/profile/**" 
+				).permitAll().
+				
+				antMatchers(HttpMethod.OPTIONS).permitAll().
+				
+				antMatchers(HttpMethod.POST,"/user" ).permitAll().
+				// antMatchers("/user/**").hasAuthority(UserRole.ROLE_ADMIN).
+				
+				antMatchers(HttpMethod.GET, "/sequenceses/**","/operationses/**" ).hasAnyAuthority(UserRole.ROLE_ADMIN,UserRole.ROLE_OPERATOR).
+				
+				antMatchers("/sequenceses/**","/operationses/**" ).hasAuthority(UserRole.ROLE_ADMIN).
+				
+				// all other requests need to be authenticated
+				anyRequest().authenticated().
+				and().
+				
+				// make sure we use stateless session; session won't be used to store user's state.
+				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
+				and().
+				
+				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		
 	}
 }

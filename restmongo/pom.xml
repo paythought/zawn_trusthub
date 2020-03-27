@@ -18,6 +18,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<spring.fox.version>3.0.0-SNAPSHOT</spring.fox.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +69,7 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
+		
 		<!-- JSR Validation Implementation -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
@@ -75,7 +77,35 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.1.0.Final</version>
 		</dependency>
+	
+	<!-- DATA REST HAL Browser -->
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-rest-hal-explorer</artifactId>
+	</dependency>
+	
+	<!-- Actuator -->
+	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+<!-- Spring OpenAPI 3  -->
+
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.2.32</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-data-rest</artifactId>
+    <version>1.2.32</version>
+</dependency>
+
 	</dependencies>
+	
 
 	<build>
 		<plugins>

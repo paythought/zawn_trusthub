@@ -1,4 +1,4 @@
-package com.zawn.domain.authen;
+package com.zawn.dto;
 
 import java.io.Serializable;
 
@@ -11,10 +11,12 @@ import com.zawn.domain.Users;
 @JsonPropertyOrder({"token", "user"})
 public class JwtResponse implements Serializable {
 	private static final long serialVersionUID = -8091879091924046844L;
+	
+	@JsonProperty("token")
 	private final String jwttoken;
 	
 	@JsonProperty("user")
-	private Users users;
+	private Users  users;
 	public JwtResponse(String jwttoken) {
 		this.jwttoken = jwttoken;
 	}

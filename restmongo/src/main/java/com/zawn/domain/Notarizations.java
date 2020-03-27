@@ -2,12 +2,8 @@
 package com.zawn.domain;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -31,12 +27,12 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-	"id_person",
-    "id_document",
-    "id_abis",
-    "id_timeline",
-    "id_step",
-    "id_log",
+	"idperson",
+    "iddocument",
+    "idabis",
+    "idtimeline",
+    "idstep",
+    "idlog",
     "type",
     "name",
     "description",
@@ -49,19 +45,19 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Notarizations extends AbstractDocument{
-	@JsonProperty("id_person")
-    @DBRef public Users id_person;
-    @JsonProperty("id_document")
-    @DBRef public Documents id_document;
-    @JsonProperty("id_abis")
-    public BigInteger id_abis;
-    @JsonProperty("id_timeline")
-    @DBRef public Timelines id_timeline;
-    @JsonProperty("id_step")
-    @DBRef public Steps id_step;
-    @JsonProperty("id_log")
-    @DBRef public Logs id_log;
+@Document @Getter @Setter @NoArgsConstructor public class  Notarizations extends AbstractLoggedDocument{
+	@JsonProperty("idperson")
+    @DBRef public Users idperson;
+    @JsonProperty("iddocument")
+    @DBRef public Documents iddocument;
+    @JsonProperty("idabis")
+    public String idabis;
+    @JsonProperty("idtimeline")
+    @DBRef public Timelines idtimeline;
+    @JsonProperty("idstep")
+    @DBRef public Steps idstep;
+    @JsonProperty("idlog")
+    @DBRef public Logs idlog;
     @JsonProperty("type")
     public Notarizations.Type type;
     @JsonProperty("name")
@@ -80,9 +76,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

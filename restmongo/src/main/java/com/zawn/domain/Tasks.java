@@ -1,7 +1,6 @@
 
 package com.zawn.domain;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,11 +30,11 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_owner",
-    "id_operator",
-    "id_person",
-    "id_sequence",
-    "id_flow",
+    "idowner",
+    "idoperator",
+    "idperson",
+    "idsequence",
+    "idflow",
     "name",
     "description",
     "parameters",
@@ -48,21 +47,21 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Tasks  extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor public class  Tasks  extends AbstractLoggedDocument{
 
-    @JsonProperty("id_owner")
+    @JsonProperty("idowner")
     @DBRef
-    public Users id_owner;
-    @JsonProperty("id_operator")
+    public Users idowner;
+    @JsonProperty("idoperator")
     @DBRef
-    public Users id_operator;
-    @JsonProperty("id_person")
+    public Users idoperator;
+    @JsonProperty("idperson")
     @DBRef
-    public Users id_person;
-    @JsonProperty("id_sequence")
-    @DBRef public Sequences id_sequence;
-    @JsonProperty("id_flow")
-    @DBRef public Sequences id_flow;
+    public Users idperson;
+    @JsonProperty("idsequence")
+    @DBRef public Sequences idsequence;
+    @JsonProperty("idflow")
+    @DBRef public Sequences idflow;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -85,9 +84,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

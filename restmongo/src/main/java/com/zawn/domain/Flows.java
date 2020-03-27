@@ -1,7 +1,6 @@
 
 package com.zawn.domain;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_person",
+    "idperson",
     "name",
     "description",
     "parameters",
@@ -42,11 +41,11 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Flows extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor public class  Flows extends AbstractLoggedDocument{
 
-    @JsonProperty("id_person")
+    @JsonProperty("idperson")
     @DBRef
-    public Users id_person;
+    public Users idperson;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -64,9 +63,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

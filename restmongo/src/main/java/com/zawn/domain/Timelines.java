@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -30,8 +31,8 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_owner",
-    "id_sequence",
+    "idowner",
+    "idsequence",
     "steps",
     "cache",
     "hidden",
@@ -41,13 +42,14 @@ import lombok.Setter;
     "logs"
 })
 @Document @Getter @Setter @NoArgsConstructor 
-public class Timelines extends AbstractDocument{
-	@JsonProperty("id_owner")
+public class Timelines extends AbstractLoggedDocument{
+	@JsonProperty("idowner")
     @DBRef 
-    public Users id_owner;
-    @JsonProperty("id_sequence")
+    @NotNull
+    public Users idowner;
+    @JsonProperty("idsequence")
     @DBRef 
-    public Sequences id_sequence;
+    public Sequences idsequence;
     @JsonProperty("steps")
     @Valid
     @DBRef 
@@ -62,10 +64,6 @@ public class Timelines extends AbstractDocument{
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef 
-    public List<Logs> logs = new ArrayList<>();
 
     public enum Status {
 

@@ -1,4 +1,4 @@
-package com.zawn.domain.authen;
+package com.zawn.dto;
 
 import java.io.Serializable;
 

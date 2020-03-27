@@ -1,12 +1,8 @@
 
 package com.zawn.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -30,7 +26,7 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_customer",
+    "idcustomer",
     "name",
     "description",
     "amount",
@@ -40,10 +36,10 @@ import lombok.Setter;
     "notes",
     "logs"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Wallets  extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor public class  Wallets  extends AbstractLoggedDocument{
 
-    @JsonProperty("id_customer")
-    @DBRef public Customers id_customer;
+    @JsonProperty("idcustomer")
+    @DBRef public Customers idcustomer;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -58,9 +54,7 @@ import lombok.Setter;
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef public List<Logs> logs = new ArrayList<>();
+    
 
     public enum Status {
 

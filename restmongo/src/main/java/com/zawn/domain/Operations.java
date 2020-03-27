@@ -11,13 +11,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -34,13 +30,21 @@ import lombok.Setter;
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "name", "description", "icon", "image", "path", "witness", "parameters", "amount", "hidden",
-		"status", "verified", "notes", "logs" })
+@JsonPropertyOrder({ 
+	"name", 
+	"description", 
+	"icon", 
+	"image", 
+	"path", 
+	"witness", 
+	"parameters", 
+	"amount", 
+	"hidden","status", "verified", "notes", "logs" })
 @Document
 @Getter
 @Setter
 @NoArgsConstructor
-public class Operations extends AbstractDocument {
+public class Operations extends AbstractLoggedDocument {
 
 	@JsonProperty("name")
 	@NotEmpty
@@ -72,10 +76,6 @@ public class Operations extends AbstractDocument {
 	public Boolean verified = false;
 	@JsonProperty("notes")
 	public String notes;
-	@JsonProperty("logs")
-	@Valid
-	@DBRef
-	public List<Logs> logs = new ArrayList<>();
 
 	public enum Status {
 

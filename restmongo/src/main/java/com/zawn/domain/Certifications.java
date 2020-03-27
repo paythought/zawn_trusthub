@@ -1,10 +1,6 @@
 package com.zawn.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +19,7 @@ import lombok.Setter;
 */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"id_abis",
+"idabis",
 "name",
 "description",
 "date",
@@ -38,8 +34,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Certifications extends AbstractDocument{
-@JsonProperty("id_abis")
-public Abis id_abis;
+@JsonProperty("idabis")
+public Abis idabis;
 @JsonProperty("name")
 public String name;
 @JsonProperty("description")

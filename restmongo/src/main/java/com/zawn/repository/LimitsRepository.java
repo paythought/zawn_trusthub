@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.zawn.domain.Limits;
 
-public interface LimitsRepository extends MongoRepository<Limits, BigInteger> {
+public interface LimitsRepository extends MongoRepository<Limits, String> {
 
 }

@@ -1,4 +1,4 @@
-package com.zawn.domain.authen;
+package com.zawn.dto;
 
 import java.math.BigInteger;
 
@@ -15,21 +15,21 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDTO {
 	@JsonProperty("id")
-	private BigInteger id;
+	private String id=null;
 	
 	@JsonProperty("username")
-	public String username;
+	public String username=null;
 	@JsonProperty("password")
-	public String password;
+	public String password=null;
 	@JsonProperty("type")
-	public Users.Type type;
+	public Users.Type type=null;
 	
 	@JsonProperty("hidden")
-	public Boolean hidden;
+	public Boolean hidden=null;
 	@JsonProperty("status")
-	public StatusEnum status;
+	public StatusEnum status=null;
 	@JsonProperty("verified")
-	public Boolean verified;
+	public Boolean verified=null;
 	@JsonProperty("notes")
-	public String notes;
+	public String notes=null;
 }

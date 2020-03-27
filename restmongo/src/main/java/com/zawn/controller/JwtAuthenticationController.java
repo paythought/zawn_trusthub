@@ -1,8 +1,8 @@
 package com.zawn.controller;
 
-import java.math.BigInteger;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,23 +10,25 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zawn.conf.JwtTokenUtil;
 import com.zawn.domain.Users;
-import com.zawn.domain.authen.JwtRequest;
-import com.zawn.domain.authen.JwtResponse;
-import com.zawn.domain.authen.UserDTO;
+import com.zawn.dto.JwtRequest;
+import com.zawn.dto.JwtResponse;
 import com.zawn.service.JwtUserDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j 
-@RestController
+@RepositoryRestController
+//@RestController
 @CrossOrigin//(origins = "http://localhost:9000")
+@RequestMapping("/login")
 public class JwtAuthenticationController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -34,8 +36,11 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+	@Autowired
+	private LoginModelAssembler loginModelAssembler;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<?> createAuthenticationToken(
 			@RequestBody(required=true) JwtRequest authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -45,7 +50,7 @@ public class JwtAuthenticationController {
 		JwtResponse res=new JwtResponse(token);
 		res.setUsers(user);
 		log.info("Successful login. User name: " + user.getUsername() );
-		return ResponseEntity.ok(res);
+		return ResponseEntity.ok(loginModelAssembler.toModel(res));
 	}
 	
 	

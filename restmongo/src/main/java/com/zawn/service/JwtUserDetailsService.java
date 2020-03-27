@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.zawn.domain.Users;
 import com.zawn.repository.UsersRepository;
+import com.zawn.domain.Users.Type;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -30,10 +31,20 @@ public class JwtUserDetailsService implements UserDetailsService {
 //		}
 		Users user = findUsersByUsername(username);
 		// TODO Role, Enabled management
-		GrantedAuthority ga = user.getType() == Users.Type.ADMIN ? UserRole.AUTHORITY_ADMIN
-				: UserRole.AUTHORITY_OPERATOR;
 		ArrayList<GrantedAuthority> gaList = new ArrayList<>();
-		gaList.add(ga);
+		switch(user.getType()) {
+		case ADMIN:
+			gaList.add(UserRole.AUTHORITY_ADMIN);			break;
+		case OPERATOR:
+			gaList.add(UserRole.AUTHORITY_OPERATOR);			break;
+		case COMPANY:
+			gaList.add(UserRole.AUTHORITY_COMPANY);			break;
+		case PARTNER:
+			gaList.add(UserRole.AUTHORITY_PARTNER);			break;
+		case PERSON:
+			gaList.add(UserRole.AUTHORITY_PERSON);			break;
+		}
+		
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), gaList);
 	}
 
@@ -42,10 +53,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("User can't be found with empty username.");
 		}
 
-		Users templ = new Users();
-		templ.setUsername(username);
-		Example<Users> example = Example.of(templ);
-		Optional<Users> user = userDao.findOne(example);
+		Optional<Users> user = userDao.findByUsername(username);
 
 		if (!user.isPresent()) {
 			throw new UsernameNotFoundException("User not found with username: " + username);

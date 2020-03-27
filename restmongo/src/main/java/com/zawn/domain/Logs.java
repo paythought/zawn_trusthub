@@ -28,32 +28,32 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_abis",
-    "id_user",
-    "id_customer",
-    "id_operation",
-    "id_timeline",
-    "id_parameter",
-    "id_sequence",
-    "id_step",
-    "id_info",
-    "id_document",
-    "id_template",
-    "id_flow",
-    "id_notification",
-    "id_task",
-    "id_subscription",
-    "id_setting",
-    "id_module",
-    "id_preset",
-    "id_limit",
-    "id_certificator",
-    "id_seat",
-    "id_device",
-    "id_licence",
-    "id_notarization",
-    "id_wallet",
-    "id_payment",
+    "idabis",
+    "iduser",
+    "idcustomer",
+    "idoperation",
+    "idtimeline",
+    "idparameter",
+    "idsequence",
+    "idstep",
+    "idinfo",
+    "iddocument",
+    "idtemplate",
+    "idflow",
+    "idnotification",
+    "idtask",
+    "idsubscription",
+    "idsetting",
+    "idmodule",
+    "idpreset",
+    "idlimit",
+    "idcertificator",
+    "idseat",
+    "iddevice",
+    "idlicence",
+    "idnotarization",
+    "idwallet",
+    "idpayment",
     "name",
     "description",
     "type",
@@ -69,61 +69,62 @@ import lombok.Setter;
     "verified",
     "notes"
 })
-@Document @Getter @Setter @NoArgsConstructor public class  Logs extends AbstractDocument{
+@Document @Getter @Setter @NoArgsConstructor 
+public class  Logs extends AbstractDocument{
 
-    @JsonProperty("id_abis")
-    public BigInteger id_abis;
-    @JsonProperty("id_user")
+    @JsonProperty("idabis")
+    public String idabis;
+    @JsonProperty("iduser")
     @DBRef
-    public Users id_user;
-    @JsonProperty("id_customer")
-    @DBRef public Customers id_customer;
-    @JsonProperty("id_operation")
-    @DBRef public Operations id_operation;
-    @JsonProperty("id_timeline")
-    @DBRef public Timelines id_timeline;
-    @JsonProperty("id_parameter")
-    @DBRef public Parameters id_parameter;
-    @JsonProperty("id_sequence")
-    @DBRef public Sequences id_sequence;
-    @JsonProperty("id_step")
-    @DBRef public Steps id_step;
-    @JsonProperty("id_info")
-    @DBRef public Infos id_info;
-    @JsonProperty("id_document")
-    @DBRef public Documents id_document;
-    @JsonProperty("id_template")
-    @DBRef public Templates id_template;
-    @JsonProperty("id_flow")
-    @DBRef public Flows id_flow;
-    @JsonProperty("id_notification")
-    @DBRef public Notifications id_notification;
-    @JsonProperty("id_task")
-    @DBRef public Tasks id_task;
-    @JsonProperty("id_subscription")
-    @DBRef public Subscriptions id_subscription;
-    @JsonProperty("id_setting")
-    @DBRef public Settings id_setting;
-    @JsonProperty("id_module")
-    @DBRef public Modules id_module;
-    @JsonProperty("id_preset")
-    @DBRef public Presets id_preset;
-    @JsonProperty("id_limit")
-    @DBRef public Limits id_limit;
-    @JsonProperty("id_certificator")
-    @DBRef public Certificators id_certificator;
-    @JsonProperty("id_seat")
-    @DBRef public Seats id_seat;
-    @JsonProperty("id_device")
-    @DBRef public Devices id_device;
-    @JsonProperty("id_licence")
-    @DBRef public Licences id_licence;
-    @JsonProperty("id_notarization")
-    @DBRef public Notarizations id_notarization;
-    @JsonProperty("id_wallet")
-    @DBRef public Wallets id_wallet;
-    @JsonProperty("id_payment")
-    @DBRef public Payments id_payment;
+    public Users iduser;
+    @JsonProperty("idcustomer")
+    @DBRef public Customers idcustomer;
+    @JsonProperty("idoperation")
+    @DBRef public Operations idoperation;
+    @JsonProperty("idtimeline")
+    @DBRef public Timelines idtimeline;
+    @JsonProperty("idparameter")
+    @DBRef public Parameters idparameter;
+    @JsonProperty("idsequence")
+    @DBRef public Sequences idsequence;
+    @JsonProperty("idstep")
+    @DBRef public Steps idstep;
+    @JsonProperty("idinfo")
+    @DBRef public Infos idinfo;
+    @JsonProperty("iddocument")
+    @DBRef public Documents iddocument;
+    @JsonProperty("idtemplate")
+    @DBRef public Templates idtemplate;
+    @JsonProperty("idflow")
+    @DBRef public Flows idflow;
+    @JsonProperty("idnotification")
+    @DBRef public Notifications idnotification;
+    @JsonProperty("idtask")
+    @DBRef public Tasks idtask;
+    @JsonProperty("idsubscription")
+    @DBRef public Subscriptions idsubscription;
+    @JsonProperty("idsetting")
+    @DBRef public Settings idsetting;
+    @JsonProperty("idmodule")
+    @DBRef public Modules idmodule;
+    @JsonProperty("idpreset")
+    @DBRef public Presets idpreset;
+    @JsonProperty("idlimit")
+    @DBRef public Limits idlimit;
+    @JsonProperty("idcertificator")
+    @DBRef public Certificators idcertificator;
+    @JsonProperty("idseat")
+    @DBRef public Seats idseat;
+    @JsonProperty("iddevice")
+    @DBRef public Devices iddevice;
+    @JsonProperty("idlicence")
+    @DBRef public Licences idlicence;
+    @JsonProperty("idnotarization")
+    @DBRef public Notarizations idnotarization;
+    @JsonProperty("idwallet")
+    @DBRef public Wallets idwallet;
+    @JsonProperty("idpayment")
+    @DBRef public Payments idpayment;
     @JsonProperty("name")
     public String name;
     @JsonProperty("description")
@@ -144,12 +145,13 @@ import lombok.Setter;
     public String gps;
     @JsonProperty("sid")
     public Double sid;
+    
     @JsonProperty("hidden")
-    public Boolean hidden;
+    public Boolean hidden = false;
     @JsonProperty("status")
-    public Logs.Status status;
+    public Logs.Status status = Status.ENABLED;
     @JsonProperty("verified")
-    public Boolean verified;
+    public Boolean verified = true;
     @JsonProperty("notes")
     public String notes;
 

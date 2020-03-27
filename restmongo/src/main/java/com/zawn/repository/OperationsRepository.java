@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.zawn.domain.Operations;
 
-public interface OperationsRepository extends MongoRepository<Operations, BigInteger> {
+public interface OperationsRepository extends MongoRepository<Operations, String> {
 
 }

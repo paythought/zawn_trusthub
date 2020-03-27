@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import com.zawn.domain.Users;
 
 @Component
-public class UsersToIntConverter implements Converter<Users, BigInteger> {
-	public BigInteger convert(Users source) {
+public class UsersToIntConverter implements Converter<Users, String> {
+	public String convert(Users source) {
 		return source == null ? null : source.getId();
 	}
 }

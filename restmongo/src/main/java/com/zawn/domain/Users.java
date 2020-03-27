@@ -1,11 +1,13 @@
 package com.zawn.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -17,8 +19,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,21 +31,28 @@ import lombok.Setter;
  */
 @Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"username", "password", "type", "hidden", "status", "verified", "notes", "logs"})  
+@JsonPropertyOrder({"username", "password", "type", "idcompany", "hidden", "status", "verified", "notes", "logs"})  
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Users extends AbstractDocument {
+//@AllArgsConstructor
+//@Builder
+public class Users extends AbstractLoggedDocument {
 	@Indexed(unique = true)
+	@NotEmpty
 	@JsonProperty("username")
 	private String username=null;
+	@NotEmpty
 	@JsonProperty("password")
 	public String password=null;
+	@NotNull
 	@JsonProperty("type")
 	public Type type=null;
-	
+	@JsonProperty("idcompany")
+	@Valid
+	@DBRef(lazy = true)
+	public Users idcompany =null ;
+		
 	@JsonProperty("hidden")
 	public Boolean hidden=null;
 	@JsonProperty("status")
@@ -54,10 +61,6 @@ public class Users extends AbstractDocument {
 	public Boolean verified=null;
 	@JsonProperty("notes")
 	public String notes=null;
-	@JsonProperty("logs")
-	@Valid
-	@DBRef
-	public List<Logs> logs = new ArrayList<>();
 
 	public enum Type {
 		OPERATOR("OPERATOR"), ADMIN("ADMIN"), COMPANY("COMPANY"), PERSON("PERSON"),PARTNER("PARTNER");

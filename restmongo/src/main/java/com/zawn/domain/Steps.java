@@ -1,22 +1,16 @@
 
 package com.zawn.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -35,9 +29,9 @@ import lombok.Setter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id_operator",
-    "id_person",
-    "id_witness",
+    "idoperator",
+    "idperson",
+    "idwitness",
     "start",
     "finish",
     "code",
@@ -55,18 +49,19 @@ import lombok.Setter;
     "logs"
 })
 @Document @Getter @Setter @NoArgsConstructor 
-public class  Steps extends AbstractDocument{
+public class  Steps extends AbstractLoggedDocument{
 
-    @JsonProperty("id_operator")
+    @JsonProperty("idoperator")
     @DBRef
-    public Users id_operator;
-    @JsonProperty("id_person")
+    public Users idoperator;
+    @JsonProperty("idperson")
     @DBRef
-    public Users id_person;
-    @JsonProperty("id_witness")
+    public Users idperson;
+    @JsonProperty("idwitness")
     @DBRef
-    public Users id_witness;
+    public Users idwitness;
     @JsonProperty("start")
+    @NotNull
     public Date start;
     @JsonProperty("finish")
     public Date finish;
@@ -84,19 +79,17 @@ public class  Steps extends AbstractDocument{
     public String gps;
     @JsonProperty("sid")
     public Double sid;
-    
+    @NotNull
     @JsonProperty("hidden")
-    public Boolean hidden;
+    public Boolean hidden=false;
+    @NotNull
     @JsonProperty("status")
-    public Steps.Status status;
+    public Steps.Status status=Status.ENABLED;
+    @NotNull
     @JsonProperty("verified")
-    public Boolean verified;
+    public Boolean verified=false;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef
-    public List<Logs> logs = new ArrayList<>();
     
     public enum Status {
 

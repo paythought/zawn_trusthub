@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,10 +14,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -52,7 +50,7 @@ import lombok.Setter;
     "logs"
 })
 @Document @Getter @Setter @NoArgsConstructor
-public class Sequences extends AbstractDocument{
+public class Sequences extends AbstractLoggedDocument{
 
     @JsonProperty("name")
     @NotEmpty
@@ -89,10 +87,6 @@ public class Sequences extends AbstractDocument{
     public Boolean verified;
     @JsonProperty("notes")
     public String notes;
-    @JsonProperty("logs")
-    @Valid
-    @DBRef 
-    public List<Logs> logs = new ArrayList<>();
 //    @JsonIgnore
 //    @Valid
 //    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
